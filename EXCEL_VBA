@@ -1,0 +1,36 @@
+'ListObjを作成する
+Sub createTable()
+    Dim tbl As ListObject
+    Set tbl = ThisWorkbook.Sheets("Sheet1").ListObjects.Add()
+End Sub
+
+
+
+
+'ListObjの各行を取得
+Sub GetTableRows()
+    Dim tbl As ListObject
+    Dim row As ListRow
+    
+    Set tbl = ThisWorkbook.Sheets("Sheet1").ListObjects("テーブル1")
+    
+    'ListRows：表のBODYを自動取得。値の参照しかできない
+    For Each row In tbl.ListRows
+        Debug.Print row.Range.Cells(1, 2).Value '各行の2列目を取得
+    Next row
+End Sub
+
+
+'ListObjに行を追加
+Sub AddRowToTable(tbl As ListObject, values As Variant)
+    ' 引数1のListObjectに引数2の値を追加
+    tbl.ListRows.Add
+    ' 新しい行にデータを挿入（例：値1、値2、値3、値4）
+    With tbl.ListRows(tbl.ListRows.Count).Range
+        .Cells(1, 1).Value = "値1"
+        .Cells(1, 2).Value = "値2"
+        .Cells(1, 3).Value = "値3"
+        .Cells(1, 4).Value = "値4"
+    End With
+End Sub
+
